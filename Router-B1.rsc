@@ -1,14 +1,9 @@
-# jan/02/1970 02:17:24 by RouterOS 6.43.8
+# jan/02/1970 02:41:58 by RouterOS 6.43.8
 # software id = W3J1-N5TQ
 #
 # model = RB941-2nD
 # serial number = 9D75090A2D04
 /interface bridge
-add admin-mac=B8:69:F4:B5:91:A7 ageing-time=5m arp=enabled arp-timeout=auto \
-    auto-mac=no comment=defconf dhcp-snooping=no disabled=no fast-forward=yes \
-    forward-delay=15s igmp-snooping=no max-message-age=20s mtu=auto name=\
-    bridge priority=0x8000 protocol-mode=rstp transmit-hold-count=6 \
-    vlan-filtering=no
 add ageing-time=5m arp=enabled arp-timeout=auto auto-mac=yes dhcp-snooping=no \
     disabled=no fast-forward=yes forward-delay=15s igmp-snooping=no \
     max-message-age=20s mtu=auto name=loopback0 priority=0x8000 \
@@ -43,7 +38,6 @@ set [ find default-name=ether4 ] advertise=\
     B8:69:F4:B5:91:A9 mtu=1500 name=ether4 orig-mac-address=B8:69:F4:B5:91:A9 \
     rx-flow-control=off speed=100Mbps tx-flow-control=off
 /queue interface
-set bridge queue=no-queue
 set loopback0 queue=no-queue
 /interface ethernet switch
 set 0 cpu-flow-control=yes mirror-source=none mirror-target=none name=switch1
@@ -148,14 +142,10 @@ set [ find default=yes ] auth-algorithms=sha1 disabled=no enc-algorithms=\
     aes-256-cbc,aes-192-cbc,aes-128-cbc lifetime=30m name=default pfs-group=\
     modp1024
 /ip pool
-add name=default-dhcp ranges=192.168.88.10-192.168.88.254
 add name=mgmt ranges=192.168.50.10-192.168.50.50
 add name=ether1 ranges=192.168.211.10-192.168.211.50
 add name=ether2 ranges=192.168.212.10-192.168.212.50
 /ip dhcp-server
-add address-pool=default-dhcp authoritative=yes bootp-support=static \
-    disabled=no interface=bridge lease-script="" lease-time=10m name=defconf \
-    use-radius=no
 add address-pool=mgmt authoritative=yes bootp-support=static disabled=no \
     interface=wlan1 lease-script="" lease-time=10m name=mgmt use-radius=no
 add address-pool=ether1 authoritative=yes bootp-support=static disabled=no \
@@ -250,14 +240,6 @@ set ca-certificate=none certificate=none enabled=no package-path="" \
 set [ find default=yes ] disabled=no forbid=no interface=all
 /certificate settings
 set crl-download=yes crl-store=system crl-use=yes
-/interface bridge port
-add auto-isolate=no bpdu-guard=no bridge=bridge broadcast-flood=yes comment=\
-    defconf disabled=no edge=auto fast-leave=no frame-types=admit-all \
-    horizon=none hw=yes ingress-filtering=no interface=ether3 \
-    internal-path-cost=10 learn=auto multicast-router=temporary-query \
-    path-cost=10 point-to-point=auto priority=0x80 pvid=1 restricted-role=no \
-    restricted-tcn=no tag-stacking=no trusted=no unknown-multicast-flood=yes \
-    unknown-unicast-flood=yes
 /interface bridge settings
 set allow-fast-path=yes use-ip-firewall=no use-ip-firewall-for-pppoe=no \
     use-ip-firewall-for-vlan=no
@@ -283,9 +265,6 @@ set allow-fast-path=no authentication=pap,chap,mschap1,mschap2 \
     caller-id-type=ip-address default-profile=default-encryption enabled=no \
     ipsec-secret="" keepalive-timeout=30 max-mru=1450 max-mtu=1450 \
     max-sessions=unlimited mrru=disabled one-session-per-host=no use-ipsec=no
-/interface list member
-add comment=defconf disabled=no interface=bridge list=LAN
-add comment=defconf disabled=no interface=ether1 list=WAN
 /interface ovpn-server server
 set auth=sha1,md5 cipher=blowfish128,aes128 default-profile=default enabled=\
     no keepalive-timeout=60 mac-address=FE:67:0E:F7:23:B1 max-mtu=1500 mode=\
@@ -317,8 +296,6 @@ set account-local-traffic=no enabled=no threshold=256
 /ip accounting web-access
 set accessible-via-web=no address=0.0.0.0/0
 /ip address
-add address=192.168.88.1/24 comment=defconf disabled=no interface=bridge \
-    network=192.168.88.0
 add address=192.168.50.1/24 comment=Mgmt disabled=no interface=wlan1 network=\
     192.168.50.0
 add address=192.168.210.1/24 disabled=no interface=loopback0 network=\
@@ -332,16 +309,15 @@ set ddns-enabled=no update-time=yes
 /ip cloud advanced
 set use-local-address=no
 /ip dhcp-client
-add add-default-route=yes comment=defconf default-route-distance=1 \
-    dhcp-options=hostname,clientid disabled=no interface=ether1 use-peer-dns=\
-    yes use-peer-ntp=yes
+add add-default-route=no dhcp-options=hostname,clientid disabled=no \
+    interface=ether3 use-peer-dns=no use-peer-ntp=no
+add add-default-route=no dhcp-options=hostname,clientid disabled=no \
+    interface=ether4 use-peer-dns=no use-peer-ntp=no
 /ip dhcp-server config
 set store-leases-disk=5m
 /ip dhcp-server network
 add address=192.168.50.0/24 caps-manager="" dhcp-option="" dns-none=yes \
     gateway="" ntp-server="" wins-server=""
-add address=192.168.88.0/24 caps-manager="" comment=defconf dhcp-option="" \
-    dns-server="" gateway=192.168.88.1 ntp-server="" wins-server=""
 add address=192.168.211.0/24 caps-manager="" dhcp-option="" dns-none=yes \
     gateway="" ntp-server="" wins-server=""
 add address=192.168.212.0/24 caps-manager="" dhcp-option="" dns-none=yes \
@@ -505,9 +481,9 @@ set address=0.0.0.0 from=<> password="" port=25 start-tls=no user=""
 /tool graphing
 set page-refresh=300 store-every=5min
 /tool mac-server
-set allowed-interface-list=LAN
+set allowed-interface-list=none
 /tool mac-server mac-winbox
-set allowed-interface-list=LAN
+set allowed-interface-list=none
 /tool mac-server ping
 set enabled=yes
 /tool romon
