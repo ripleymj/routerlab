@@ -1,4 +1,4 @@
-# jan/02/1970 02:05:45 by RouterOS 6.43.8
+# jan/02/1970 02:53:21 by RouterOS 6.43.8
 # software id = BZAZ-155F
 #
 # model = RB941-2nD
@@ -142,13 +142,10 @@ set [ find default=yes ] auth-algorithms=sha1 disabled=no enc-algorithms=\
     aes-256-cbc,aes-192-cbc,aes-128-cbc lifetime=30m name=default pfs-group=\
     modp1024
 /ip pool
-add name=default-dhcp ranges=192.168.88.10-192.168.88.254
 add name=mgmt ranges=192.168.50.10-192.168.50.50
 add name=ether1 ranges=192.168.221.10-192.168.221.50
 add name=ether2 ranges=192.168.222.10-192.168.222.50
 /ip dhcp-server
-add address-pool=default-dhcp authoritative=yes bootp-support=static \
-    disabled=no lease-script="" lease-time=10m name=defconf use-radius=no
 add address-pool=ether1 authoritative=yes bootp-support=static disabled=no \
     interface=ether1 lease-script="" lease-time=10m name=ether1 use-radius=no
 add address-pool=ether2 authoritative=yes bootp-support=static disabled=no \
@@ -299,7 +296,8 @@ set account-local-traffic=no enabled=no threshold=256
 /ip accounting web-access
 set accessible-via-web=no address=0.0.0.0/0
 /ip address
-add address=192.168.50.1/24 disabled=no interface=wlan1 network=192.168.50.0
+add address=192.168.50.1/24 comment=Mgmt disabled=no interface=wlan1 network=\
+    192.168.50.0
 add address=192.168.221.1/24 disabled=no interface=ether1 network=\
     192.168.221.0
 add address=192.168.222.1/24 disabled=no interface=ether2 network=\
@@ -311,20 +309,19 @@ set ddns-enabled=no update-time=yes
 /ip cloud advanced
 set use-local-address=no
 /ip dhcp-client
-add add-default-route=yes comment=defconf default-route-distance=1 \
-    dhcp-options=hostname,clientid disabled=no interface=ether1 use-peer-dns=\
-    yes use-peer-ntp=yes
+add add-default-route=no dhcp-options=hostname,clientid disabled=no \
+    interface=ether3 use-peer-dns=no use-peer-ntp=no
+add add-default-route=no dhcp-options=hostname,clientid disabled=no \
+    interface=ether4 use-peer-dns=no use-peer-ntp=no
 /ip dhcp-server config
 set store-leases-disk=5m
 /ip dhcp-server network
 add address=192.168.50.0/24 caps-manager="" dhcp-option="" dns-none=yes \
     gateway="" ntp-server="" wins-server=""
-add address=192.168.88.0/24 caps-manager="" comment=defconf dhcp-option="" \
-    dns-server="" gateway=192.168.88.1 ntp-server="" wins-server=""
 add address=192.168.221.0/24 caps-manager="" dhcp-option="" dns-none=yes \
-    gateway="" ntp-server="" wins-server=""
+    gateway=192.168.221.1 ntp-server="" wins-server=""
 add address=192.168.222.0/24 caps-manager="" dhcp-option="" dns-none=yes \
-    gateway="" ntp-server="" wins-server=""
+    gateway=192.168.222.1 ntp-server="" wins-server=""
 /ip dns
 set allow-remote-requests=yes cache-max-ttl=1w cache-size=2048KiB \
     max-concurrent-queries=100 max-concurrent-tcp-sessions=20 \
@@ -355,9 +352,6 @@ add action=drop chain=forward comment="defconf: drop invalid" \
 add action=drop chain=forward comment=\
     "defconf:  drop all from WAN not DSTNATed" connection-nat-state=!dstnat \
     connection-state=new disabled=yes in-interface-list=WAN
-/ip firewall nat
-add action=masquerade chain=srcnat comment="defconf: masquerade" \
-    ipsec-policy=out,none out-interface-list=WAN !to-addresses !to-ports
 /ip firewall service-port
 set ftp disabled=no ports=21
 set tftp disabled=no ports=69
@@ -487,9 +481,9 @@ set address=0.0.0.0 from=<> password="" port=25 start-tls=no user=""
 /tool graphing
 set page-refresh=300 store-every=5min
 /tool mac-server
-set allowed-interface-list=LAN
+set allowed-interface-list=none
 /tool mac-server mac-winbox
-set allowed-interface-list=LAN
+set allowed-interface-list=none
 /tool mac-server ping
 set enabled=yes
 /tool romon
