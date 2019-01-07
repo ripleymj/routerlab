@@ -60,7 +60,18 @@ address.
 Go to the `IP -> Routes` page and note that you should have a `Connected` route.
 
 ## Step 2
+At this point, connect Router 2 to Router 3 following the Port 1 to 3 rule, as
+shown below. Visit the pages from Step 1 to see the current state of the network.
+`Interfaces` should show the correct connections. `IP -> Addresses` should show
+an address on all connected ports. `IP -> Routes` should show several `Connected`
+routes.
+
 ![Image02](illustrations/image02.png)
+
+Now let's discover a small problem with our network. Since we only have `Connected`
+routes, ping will only work over one hop. You can ping from Router 1 to 2, 2 to 3,
+or 3 to 4. However, you can't ping over two hops, such as from Router 1 to 3, or
+2 to 4. Try this!
 
 ## Step 3
 ![Image03](illustrations/image03.png)
@@ -69,10 +80,10 @@ Go to the `IP -> Routes` page and note that you should have a `Connected` route.
 ![Image04](illustrations/image04.png)
 
 ## Step 5
+Breaking things!
+
 ![Image05](illustrations/image05.png)
 
-## Step 6
 ![Image06](illustrations/image06.png)
 
-## Step 7
 ![Image07](illustrations/image07.png)
