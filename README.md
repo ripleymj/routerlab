@@ -45,7 +45,19 @@ to request an address from the other end of the cable.
 **Important: to keep things simple, make sure to connect Port 1 or 2 to Port 3 or 4.**
 
 ## Step 1
+Now we're going to build four tiny networks. If you have Router 1, find the
+corresponding Router 3, if you have Router 2, find Router 4. As mentioned above,
+you want to connect Port 1 to Port 3, as shown here:
 ![Image01](illustrations/image01.png)
+
+Now let's look around RouterOS and make sure it understands what we've done.
+Start with the `Interfaces` page, where you should see an `R` next to the
+connected port. On Router 2 and 4 *only* go to the `IP -> Addresses` page to
+confirm that you've received an address from DHCP. Give that address to your
+router friend and ask them to ping it. Also try to ping the `192.168.xxx.1`
+address.
+
+Go to the `IP -> Routes` page and note that you should have a `Connected` route.
 
 ## Step 2
 ![Image02](illustrations/image02.png)
