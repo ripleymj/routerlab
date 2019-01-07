@@ -1,5 +1,12 @@
 # UUG Routing Lab
 
+* [Step 0 - Booting up](#step-0)
+* [Step 1 - Connecting to a friend](#step-1)
+* [Step 2 - Establishing dynamic routing](#step-2)
+* [Step 3 - Redundant paths](#step-3)
+* [Step 4 - Path costs](#step-4)
+* [Step 5 - Breaking things](#step-5)
+
 ## Background Information
 
 * DHCP
