@@ -90,8 +90,26 @@ routes, ping will only work over one hop. You can ping from Router 1 to 2, 2 to 
 or 3 to 4. However, you can't ping over two hops, such as from Router 1 to 3, or
 2 to 4. Try this!
 
-## Step 3
-![Image03](illustrations/image03.png)
+## Step 3 - Establish OSPF
+![Image03](illustrations/image03-01.png)
+
+Navigate to `Routing -> OSPF` and choose `Interfaces`. Select `Add New` and
+accept the defaults to enable OSPF on all interfaces.
+
+![Image03](illustrations/image03-02.png)
+
+On the `Instances` tab, edit the default instance and change the `Router ID` to
+your loopback address.
+
+![Image03](illustrations/image03-03.png)
+
+On the `Networks` tab, select `Add New` and accept the defaults.
+
+![Image03](illustrations/image03-04.png)
+
+Now to confirm your configuration worked, go to the `OSPF -> Routes` tab.
+
+![Image03](illustrations/image03-05.png)
 
 ## Step 4
 ![Image04](illustrations/image04.png)
