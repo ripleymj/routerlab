@@ -74,6 +74,8 @@ address.
 
 Go to the `IP -> Routes` page and note that you should have a `Connected` route.
 
+![Image01-04](illustrations/image01-04.png)
+
 ## Step 2
 At this point, connect Router 2 to Router 3 following the Port 1 to 3 rule, as
 shown below. Visit the pages from Step 1 to see the current state of the network.
