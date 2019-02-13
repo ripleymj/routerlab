@@ -49,7 +49,7 @@ to request an address from the other end of the cable.
 
 ## Step 1
 Now we're going to build four tiny networks. If you have Router 1, find the
-corresponding Router 3, if you have Router 2, find Router 4. As mentioned above,
+corresponding Router 2, if you have Router 3, find Router 4. As mentioned above,
 you want to connect Port 1 to Port 3, as shown here:
 ![Image01-01](illustrations/image01-01.png)
 
