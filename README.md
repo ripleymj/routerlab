@@ -9,11 +9,7 @@
 
 ## Background Information
 
-* DHCP
-* OSPF?
-* RFC 1918
-* Route - gateway, subnet
-* Subnet
+[Google Slides](https://docs.google.com/presentation/d/1BM6KKO7yOckv6UIttnUBwIPP_I6tp-srvNpf8yS70Gs/edit?usp=sharing)
 
 ## Step 0
 For this lab, we're building a network with dynamic routing. We have eight
