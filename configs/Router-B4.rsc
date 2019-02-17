@@ -1,4 +1,4 @@
-# jan/02/1970 06:51:12 by RouterOS 6.43.8
+# jan/02/1970 04:51:17 by RouterOS 6.43.8
 # software id = 7W7D-E997
 #
 # model = RB941-2nD
@@ -301,7 +301,7 @@ add address=192.168.241.1/24 disabled=no interface=ether1 network=\
     192.168.241.0
 add address=192.168.242.1/24 disabled=no interface=ether2 network=\
     192.168.242.0
-add address=192.168.240.0/24 disabled=no interface=loopback0 network=\
+add address=192.168.240.1/24 disabled=no interface=loopback0 network=\
     192.168.240.0
 /ip cloud
 set ddns-enabled=no update-time=yes
