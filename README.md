@@ -9,7 +9,7 @@
 
 ## Background Information
 
-[Google Slides](https://docs.google.com/presentation/d/1BM6KKO7yOckv6UIttnUBwIPP_I6tp-srvNpf8yS70Gs/edit?usp=sharing)
+[Networking Overview Slides](Networking%20Overview.pdf)
 
 ## Step 0
 For this lab, we're building a network with dynamic routing. We have eight
@@ -118,3 +118,7 @@ Breaking things!
 ![Image06](illustrations/image06.png)
 
 ![Image07](illustrations/image07.png)
+
+## BGP Session
+
+Though less documented here, materials for a BGP follow-up session are [here](BGP/).
